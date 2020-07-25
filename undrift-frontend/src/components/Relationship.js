@@ -37,4 +37,8 @@ export default function Relationship(props) {
 </>
   );
 }
+<<<<<<< HEAD
  // onClick={(event) => {alert('clicked')}} color="primary" aria-label="delete" size="large"
+=======
+ // onClick={(event) => {alert('clicked')}} color="primary" aria-label="delete" size="large"
+>>>>>>> e0d4a8d7fbe1580e8e94c2032c87dd285a60f61a
