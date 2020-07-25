@@ -54,32 +54,45 @@ export default function Enter(props) {
   const classes = useStyles();
   const [nameLogin, setNameLogin] = React.useState('');
   const [showError, setShowError] = React.useState(false)
+  const [password, setPW] = React.useState('')
+  
   const handleChange = (event) => {
     setNameLogin(event.target.value);
+    setShowError(false)
+  };
+
+  const handlePW = (event) => {
+    setPW(event.target.value);
   };
 
   const handleSubmit = (event) => {
+    event.preventDefault();
+
     if (nameLogin == ''){
       setShowError(true)
-    }else {
-      event.preventDefault();
-    console.log('signing in')
 
-    // const options = {
-    //       method: 'POST',
-    //       headers: { 'Content-Type': 'application/json' },
-    //       body: JSON.stringify({ 
-    //         name: name,
-    //       }) };
-    //   fetch('http://localhost:3000/relationships', options)
-    //       .then(response => response.json())
-    //       .then(data => {
-    //           // this.setState({ postId: data.id })
-    //           //  console.log('got back', data)
-    //             props.setRelList(
-    //               [...props.relList, {...data }]
-    //             )
-    //       })
+      console.log('hi')
+    }else {
+    // console.log('signing in')
+    console.log(password)
+
+    const options = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user: {
+            name: nameLogin,
+            password: password
+    }}) };
+      fetch('http://localhost:3000/login', options)
+      //make sure url matches either log in or sign up 
+          .then(response => response.json())
+          .then(data => {
+              // this.setState({ postId: data.id })
+               console.log('got back', data)
+                // props.setRelList(
+                //   [...props.relList, {...data }]
+                // )
+          })
     }
             //UI WILL NOT work if you put .catch so don't - even commented out 
 };
@@ -91,55 +104,34 @@ export default function Enter(props) {
         <div className={classes.paper}>
           
           <form className={classes.form} noValidate>
+          <TextField
+      variant="outlined"
+      margin="normal"
+      required
+      fullWidth
+      style={{color: '#21CBF3'}}
+      id="name"
+      label="Name"
+      name="name"
+      autoComplete="name"
+      value={nameLogin}
+      autoFocus
+      onChange={handleChange}
+      error={showError}
+    /> <TextField
+        variant="outlined"
+        margin="normal"
+        required
+        fullWidth
+        name="password"
+        label="Password"
+        type="password"
+        id="password"
+        autoComplete="current-password"
+        onChange={handlePW}
+      />
 
-            {showError == false ? <><TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            style={{color: '#21CBF3'}}
-            id="name"
-            label="Name"
-            name="name"
-            autoComplete="name"
-            value={nameLogin}
-            autoFocus
-            onChange={handleChange}
-          /> <Slide right><TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            /></Slide> </>  : <><TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              error
-              style={{color: '#21CBF3'}}
-              id="name"
-              label="Name"
-              name="name"
-              autoComplete="name"
-              value={nameLogin}
-              autoFocus
-              onChange={handleChange}
-            /> <Slide right><TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              /></Slide> </>}
+          
           
             <FormControlLabel
               control={<Checkbox value="remember" style={{color: '#21CBF3'}}/>}

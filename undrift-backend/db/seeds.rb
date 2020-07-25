@@ -11,6 +11,6 @@ require 'faker'
 User.destroy_all
 Relationship.destroy_all
 
-User.create(name: "Bob")
+User.create(name: "Bob", password: "milk")
 
 Relationship.create(name: 'Susan', user: User.first)

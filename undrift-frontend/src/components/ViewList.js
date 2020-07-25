@@ -21,7 +21,7 @@ function ListItemLink(props) {
 }
 
 export default function ViewList(props) {
-// console.log('viewlist receives', props.relList)
+console.log('viewlist receives', props)
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -35,7 +35,6 @@ export default function ViewList(props) {
           setRelList(data)
         }
             // this.setState({ postId: data.id })
-            
         )} */}
 
       <List component="nav" aria-label="secondary mailbox folders">

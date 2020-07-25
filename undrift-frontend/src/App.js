@@ -42,6 +42,8 @@ export default function MenuAppBar() {
   return (<>
       <Nav> </Nav>
       {showSU == false ? <Enter passToggle={setShowSU}/> : <Signup passToggle={setShowSU} /> }
+      {/* <AddForm/>
+      <ViewList relList={relList}/> */}
       </>
      
     );
