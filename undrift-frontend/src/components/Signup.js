@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
     const [confirmation, setConfirmation] = React.useState('')
     const [showPError, setShowPError] = React.useState(false)
     const [notFound, setNotFound] = React.useState(false)
+    const [validated, setValidated] = React.useState(true)
 
     const handleChange = (event) => {
       setNameLogin(event.target.value);
@@ -86,7 +87,11 @@ const useStyles = makeStyles((theme) => ({
       if (confirmation === password){
         setShowError(true)
         console.log('Passwords do not match each other.')
-      }else {
+      }else if (name.size < 3){
+        setValidated(false)
+        
+      }
+      else{
       const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -115,7 +120,8 @@ const useStyles = makeStyles((theme) => ({
     return (
      <>
    {notFound? <p style={{color: 'red'}}> Invalid account information. Please try again. </p> : ''}
-           {nameLogin == '' ? <TextField
+   {validated?   '' : <p style={{color: 'red'}}> Your username and password must be at least 3 characters and contain no spaces. </p>}
+      {nameLogin == '' ? <TextField
       variant="outlined"
       margin="normal"
       required
