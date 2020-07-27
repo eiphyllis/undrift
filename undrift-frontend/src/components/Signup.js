@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
       if (confirmation === password){
         setShowError(true)
         console.log('Passwords do not match each other.')
-      }else if (name.size < 3){
+      }else if (nameLogin.size < 3){
         setValidated(false)
         
       }
