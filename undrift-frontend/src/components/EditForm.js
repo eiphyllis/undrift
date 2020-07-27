@@ -41,9 +41,7 @@ const useStyles = makeStyles({
 export default function EditForm(props) {
   // console.log()
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    right: false
-  });
+  const [state, setState] = React.useState({right: false});
   const [name, setName] = React.useState('Name');
   const [freq, setFreq] = React.useState('Weekly');
   const [social, setSocial] = React.useState('https://wwww.linkedin.com/in/profile');
@@ -52,8 +50,6 @@ export default function EditForm(props) {
   const [value, setValue] = React.useState('Controlled');
 
   const handleChange = (event) => {
-    // console.log('name is', event.target.value)
-    // console.log(props.id)
     setName(event.target.value);
   };
 
@@ -75,8 +71,25 @@ export default function EditForm(props) {
     setOpen(true);
   };
 
+  const handleDelete = () => {
+    console.log('deleting')
+    setState({ ...state, ['right']: false});
+    const options = {method: 'DELETE'};
+
+    fetch(`http://localhost:3000/relationships/${props.id}`, options)
+      .then(response => response.json())
+      .then(data => {
+         console.log('delete got back',  data)
+         props.setRelList(data.relationships)
+         setState({ ...state, ['right']: false});
+
+       // .map(relationship => relationship.id == component.key ? updated_object : relationship/don't do anything)
+       //fetch person and updated relationships to render
+      })//UI WILL NOT work if you put .catch so don't - even commented out 
+  };
+
   const handleSave = (event) => {
-    console.log('name', name, 'id', props.id, 'social', social, 'freq', freq, 'notes', notes)
+    // console.log('name', name, 'id', props.id, 'social', social, 'freq', freq, 'notes', notes)
 
     const options = {
       method: 'PATCH',
@@ -88,33 +101,18 @@ export default function EditForm(props) {
         freq: freq,
         notes: notes
       })
-  };
+    };
 
-  // .map(relationship => relationship.id == component.key ? updated_object : relationship/don't do anything)
-  fetch(`http://localhost:3000/relationships/${props.id}`, options)
+    fetch(`http://localhost:3000/relationships/${props.id}`, options)
       .then(response => response.json())
       .then(data => {
-           console.log('edit got back',  data)
-           console.log('find', props.relList)
-          // find matching id in array
-            // props.setRelList(
-            //   [...props.relList, {...data }]
-            // )
-            // if (props.relList == []){
-            //   props.setRelList(
-            //     [{...data }]
-            //   )
-            //   // console.log('if')
-            // } else {
-            //   props.setRelList(
-            //     [...props.relList, {...data }]
-            //   )
-            //   // console.log('else')
-            // }
-            toggleDrawer('right', false)
+          console.log('edit got back',  data)
+         props.setRelList(data.relationships)
 
-      })
-            //UI WILL NOT work if you put .catch so don't - even commented out 
+          setState({ ...state, ['right']: false});
+          // orrrr refetch and populate the list (render the user from the backend instead) props.setRelList
+            // .map(relationship => relationship.id == component.key ? updated_object : relationship/don't do anything)
+      }) //UI WILL NOT work if you put .catch so don't - even commented out 
 };
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -162,9 +160,7 @@ export default function EditForm(props) {
           onChange={handleFreq}
         >
          <MenuItem value={'Weekly'}>Weekly</MenuItem>
-          <MenuItem value={'Biweekly'}>Biweekly</MenuItem>
           <MenuItem value={'Monthly'}>Monthly</MenuItem>
-          <MenuItem value={'Quarterly'}>Quarterly</MenuItem>
           <MenuItem value={'Yearly'}>Yearly</MenuItem>
         </Select>
       </FormControl>
@@ -176,7 +172,7 @@ export default function EditForm(props) {
         />
     </form>
     <ButtonGroup variant="contained" fullWidth="true" aria-label="contained primary button group">
-        <Button variant="outlined"> Cancel </Button>
+        <Button variant="outlined" onClick={()=> setState({ ...state, ['right']: false})}> Cancel </Button>
         <Button  style={{
         background: 'linear-gradient(to right, #99e6ff 30%, #21CBF3 90%)',
         boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
@@ -184,7 +180,7 @@ export default function EditForm(props) {
         borderRadius: 3,
         color: 'white'}} onClick={() => handleSave()}> Save </Button>
       </ButtonGroup>
-      <Button component="span" display="block" variant="outlined" fullWidth="true" style={{backgroundColor: '#992828', opacity: '0.45'}}> Delete</Button>
+      <Button component="span" display="block" variant="outlined" fullWidth="true" onClick={() => handleDelete()}style={{backgroundColor: '#992828', opacity: '0.45'}}> Delete</Button>
 
     </>
     </div>
@@ -194,7 +190,7 @@ export default function EditForm(props) {
     <div>
       {['right'].map((anchor) => (
         <React.Fragment key={anchor}>
-        <ChevronRightRoundedIcon  onClick={toggleDrawer(anchor, true)} > </ChevronRightRoundedIcon>
+        <ChevronRightRoundedIcon  style={{backgroundColor: '#71d0e4'}} onClick={toggleDrawer(anchor, true)} > </ChevronRightRoundedIcon>
           <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
             {list(anchor)}
           </Drawer>

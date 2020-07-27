@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Slide from 'react-reveal/Slide';
 import ApiCalendar from 'react-google-calendar-api';
-
+import Flip from 'react-reveal/Flip';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,7 +62,6 @@ export default function Login(props) {
   const handlePW = (event) => {
     setPW(event.target.value);
   };
-  
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -71,8 +70,6 @@ export default function Login(props) {
     //  if issues remove () after sign
      ApiCalendar.handleAuthClick()
     }
-
-
     if (nameLogin == ''){
       setShowError(true)
     }else {
@@ -103,8 +100,8 @@ export default function Login(props) {
     }
             //UI WILL NOT work if you put .catch so don't - even commented out 
 };
-  return (
-   <>
+  return (<>
+  {/* {props.flip ? <} */}
    {notFound? <p style={{color: 'red'}}> Account not found. Check your credentials again or sign up! </p> : ''}
    {nameLogin == '' ? <TextField
       variant="outlined"
@@ -180,6 +177,5 @@ export default function Login(props) {
                 </Button>
               </Grid>
             </Grid>
-            </>
-  );
+</>  );
 }

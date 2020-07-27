@@ -32,7 +32,7 @@ export default function Relationship(props) {
     <ListItemText primary={props.name} />
           <ListItemText secondary={props.freq} />
           <ListItemText overflow="hidden" secondary={props.notes} />
-    <EditForm {...props}> </EditForm>
+    <EditForm  {...props}> </EditForm>
     </ListItem>
 </>
   );

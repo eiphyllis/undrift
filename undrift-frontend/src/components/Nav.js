@@ -67,9 +67,7 @@ export default function Nav(props) {
         <Toolbar>
         <img src='https://www.netclipart.com/pp/m/101-1010852_png-50-px-boat-clipart-transparent-background.png' style={{height: 30, width: 30}} alt="Logo" />
     
-        <Typography variant="h6" className={classes.title}>
-                        Undrift
-          </Typography>
+        <Typography variant="h6" className={classes.title}>  Undrift</Typography>
 
           {auth && (
             <div>
@@ -81,7 +79,7 @@ export default function Nav(props) {
                 color="inherit"
               >
                 <AccountCircle />
-              {props.dashboard ? <Typography color="inherit"> Welcome back, {props.user.name} ! </Typography> : ''}
+              {props.dashboard ? <Typography color="inherit"> Welcome back, {props.user.name}! </Typography> : ''}
 
               </IconButton>
               <Menu

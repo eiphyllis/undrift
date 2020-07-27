@@ -34,17 +34,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MenuAppBar() {
+export default function App() {
   const classes = useStyles();
   const [relList, setRelList] = React.useState([])
   const [dashboard, setDashboard] = React.useState(false);
   const [user, setUser] = React.useState(null);
 
-  
   return (<>
       <Nav setDashboard={setDashboard} dashboard={dashboard} setRelList={setRelList} user={user} setUser={setUser}> </Nav>
       {dashboard ?   <><AddForm user={user} relList={relList} setRelList={setRelList}/>
-      <ViewList relList={relList}/></> : <Enter setUser={setUser} setRelList={setRelList} setDashboard={setDashboard}/> }
+      <ViewList setRelList={setRelList} relList={relList}/></> : <Enter setUser={setUser} setRelList={setRelList} setDashboard={setDashboard}/> }
       {/* <AddForm relList={relList} setRelList={setRelList}/>
       <ViewList relList={relList}/> */}
       </>

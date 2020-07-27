@@ -27,7 +27,7 @@ class RelationshipsController < ApplicationController
    relationship =  Relationship.find(params[:id])
 
      relationship.update(relationships_params)
-        render json: relationship
+        render json: relationship.user, include: :relationships
         # redirect_to relationship_path(@relationship)
     # else
     #     # redirect_to edit_relationship_path(@relationship)
@@ -37,9 +37,10 @@ class RelationshipsController < ApplicationController
 
   def destroy 
     relationship = Relationship.find(params[:id])
+
     if  relationship
         relationship.destroy 
-        render json:  relationship
+        render json:  relationship.user, include: :relationships
     else
         render json: { error: 'Invalid  relationship' }
     end

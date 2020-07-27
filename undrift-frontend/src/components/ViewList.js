@@ -23,24 +23,14 @@ function ListItemLink(props) {
 }
 
 export default function ViewList(props) {
-// console.log('viewlist receives', props)
   const classes = useStyles();
   return (
     <Slide bottom>
     <div className={classes.root}>
-      <p> Keep in touch with </p>
-      <Divider />
-    
-   {/* {fetch('https://localhost:3000/relationships')
-        .then(response => response.json())
-        .then(data => {
-          console.log(data)
-          setRelList(data)
-        }
-            // this.setState({ postId: data.id })
-        )} */}
+      <p style={{color: '#152238'}}>         Keep in touch with </p>
+      <Divider style={{color: '#152238'}} />
 
-      <List component="nav" aria-label="secondary mailbox folders">
+      <List style={{ background: 'linear-gradient(#99e6ff 30%, #21CBF3 90%)'}} component="nav" aria-label="secondary mailbox folders">
         {props.relList.map(person =>
         <Relationship {...person} key={person.id} relList={props.relList} setRelList={props.setRelList}></Relationship>
         )}

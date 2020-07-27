@@ -19,6 +19,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
 import { Grid } from '@material-ui/core';
 import Fade from 'react-reveal/Fade';
+import ApiCalendar from 'react-google-calendar-api';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,6 +74,31 @@ export default function AddForm(props) {
     if (name == ''){
       setShowError(true)
     }else {
+// daily, weekly, monthly, annually
+      let event = {
+        'summary': 'Trying to test',
+        'description': 'not yet',
+        'start': {
+          'dateTime': '2020-07-28T09:00:00-07:00',
+          'timeZone': 'America/Los_Angeles'
+        },
+        'end': {
+          'dateTime': '2020-07-28T10:00:00-07:00',
+          'timeZone': 'America/Los_Angeles'
+        },
+        'recurrence': [
+          'RRULE:FREQ=WEEKLY;COUNT=52'
+        ],
+        'reminders': {
+          'useDefault': false,
+          'overrides': [
+            {'method': 'email', 'minutes': 24 * 60},
+            {'method': 'popup', 'minutes': 10}
+          ]}
+      }
+      ApiCalendar.createEvent(event, 'primary').then(console.log).catch(console.log)
+
+    //make all day recurring event based on form inputs
     const options = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -87,10 +113,7 @@ export default function AddForm(props) {
       fetch('http://localhost:3000/relationships', options)
           .then(response => response.json())
           .then(data => {
-              // this.setState({ postId: data.id })
-              //  console.log('got back', data)
-              //  console.log(props)
-
+            console.log('add got back', data)
               if (props.relList == []){
                 props.setRelList(
                   [{...data }]
@@ -147,9 +170,7 @@ export default function AddForm(props) {
           onChange={handleFreq}
         >
           <MenuItem value={'Weekly'}>Weekly</MenuItem>
-          <MenuItem value={'Biweekly'}>Biweekly</MenuItem>
           <MenuItem value={'Monthly'}>Monthly</MenuItem>
-          <MenuItem value={'Quarterly'}>Quarterly</MenuItem>
           <MenuItem value={'Yearly'}>Yearly</MenuItem>
         </Select>
       </FormControl>

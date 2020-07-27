@@ -74,11 +74,8 @@ const useStyles = makeStyles((theme) => ({
 
     const handlePW = (event) => {
         console.log('pw is', password)
-
         setPW(event.target.value);
         console.log('updated pw is', password)
-
-
       };
   
     const handleSubmit = (event) => {
@@ -90,7 +87,6 @@ const useStyles = makeStyles((theme) => ({
       }else if (nameLogin.size < 3){
         setValidated(false)
         console.log('Name too short.')
-        
       }
       else{
       const options = {
@@ -120,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
               //UI WILL NOT work if you put .catch even if it's commented out - so don't 
   };
     return (
-     <>
+     <Flip left>
    {notFound? <p style={{color: 'red'}}> Invalid account information. Please try again. </p> : ''}
    {validated?   '' : <p style={{color: 'red'}}> Your username and password must be at least 3 characters and contain no spaces. </p>}
       {nameLogin == '' ? <TextField
@@ -196,11 +192,13 @@ const useStyles = makeStyles((theme) => ({
                 <Grid item xs>
                 </Grid>
                 <Grid item>
-                  <Button style={{color: '#21CBF3'}} variant="body2" onClick={(event) => {props.signup(!props.showLogin)}}>
+                  <Button style={{color: '#21CBF3'}} variant="body2" onClick={(event) => {
+                    props.signup(!props.showLogin)} }>
+                    {/* props.setFlip(!props.flip) */}
                     {"Already have an account? Login"}
                   </Button>
                 </Grid>
               </Grid>
-              </>
+              </Flip>
     );
   }

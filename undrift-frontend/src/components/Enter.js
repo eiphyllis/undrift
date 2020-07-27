@@ -60,8 +60,8 @@ export default function Enter(props) {
   const [showError, setShowError] = React.useState(false)
   const [password, setPW] = React.useState('')
 const [showLogin, setShowLogin] = React.useState(true)
+const [flip, setFlip] = React.useState(false)
 
-  
   const handleChange = (event) => {
     setNameLogin(event.target.value);
     setShowError(false)
@@ -104,7 +104,7 @@ const [showLogin, setShowLogin] = React.useState(true)
     <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
       <div className={classes.paper}>
         <form className={classes.form} noValidate>
-         {showLogin ? <Login signup={setShowLogin} setRelList={props.setRelList} showLogin={showLogin} dashboard={props.setDashboard} setUser={props.setUser} /> : <Signup signup={setShowLogin} setUser={props.setUser} showLogin={showLogin} dashboard={props.setDashboard}/> }
+         {showLogin ? <Login signup={setShowLogin} setRelList={props.setRelList} showLogin={showLogin} dashboard={props.setDashboard} setUser={props.setUser} /> : <Signup signup={setShowLogin} setUser={props.setUser} showLogin={showLogin} flip={flip} setFlip={setFlip} dashboard={props.setDashboard}/> }
 
         <Box mt={5}>
 
