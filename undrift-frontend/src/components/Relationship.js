@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   }
 export default function Relationship(props) {
   const classes = useStyles();
-  console.log()
+  console.log(props.key)
   const handleClick = (event) => {
     alert('editing');
     // <EditForm> </EditForm>
@@ -31,8 +31,8 @@ export default function Relationship(props) {
     <ListItem>
     <ListItemText primary={props.name} />
           <ListItemText secondary={props.freq} />
-          <ListItemText secondary={props.notes} />
-    <EditForm object={props}> </EditForm>
+          <ListItemText overflow="hidden" secondary={props.notes} />
+    <EditForm {...props}> </EditForm>
     </ListItem>
 </>
   );

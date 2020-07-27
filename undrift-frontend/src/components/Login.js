@@ -65,8 +65,13 @@ export default function Login(props) {
   
 
   const handleSubmit = (event) => {
-    ApiCalendar.handleAuthClick();
     event.preventDefault();
+
+   if (!ApiCalendar.sign) {
+    //  if issues remove () after sign
+     ApiCalendar.handleAuthClick()
+    }
+
 
     if (nameLogin == ''){
       setShowError(true)
@@ -87,7 +92,9 @@ export default function Login(props) {
                if (data.error){
                 setNotFound(true)
                }else {
+                 props.setUser(data)
                  props.dashboard(true)
+                 props.setRelList(data.relationships)
                }
                 // props.setRelList(
                 //   [...props.relList, {...data }]

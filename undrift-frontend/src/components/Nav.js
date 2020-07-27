@@ -35,7 +35,6 @@ export default function Nav(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [relList, setRelList] = React.useState([]);
-
   const handleChange = (event) => {
     setAuth(event.target.checked);
   };
@@ -46,6 +45,12 @@ export default function Nav(props) {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleClick = () => {
+    props.setDashboard(false)
+    props.setRelList([])
+    props.setUser(null)
   };
 
   return (
@@ -76,7 +81,7 @@ export default function Nav(props) {
                 color="inherit"
               >
                 <AccountCircle />
-              {props.dashboard ? <Typography color="inherit"> Welcome back, Bob! </Typography> : ''}
+              {props.dashboard ? <Typography color="inherit"> Welcome back, {props.user.name} ! </Typography> : ''}
 
               </IconButton>
               <Menu
@@ -98,7 +103,7 @@ export default function Nav(props) {
               </Menu>
             </div>
           )}
-          {props.dashboard ? <Button onClick={() => props.setDashboard(false)} color="inherit">Logout</Button> : <Button color="inherit">Login</Button>}
+          {props.dashboard ? <Button onClick={handleClick} color="inherit">Logout</Button> : <Button color="inherit">Login</Button>}
 
         </Toolbar>
       </AppBar>

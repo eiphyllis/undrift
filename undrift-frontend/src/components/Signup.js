@@ -89,6 +89,7 @@ const useStyles = makeStyles((theme) => ({
         console.log('Passwords do not match each other.')
       }else if (nameLogin.size < 3){
         setValidated(false)
+        console.log('Name too short.')
         
       }
       else{
@@ -108,6 +109,7 @@ const useStyles = makeStyles((theme) => ({
                  if (data.error){
                     setNotFound(true)
                    }else {
+                    props.setLoginId(data.id)
                      props.dashboard(true)
                    }
                   // props.setRelList(

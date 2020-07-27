@@ -104,7 +104,7 @@ const [showLogin, setShowLogin] = React.useState(true)
     <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
       <div className={classes.paper}>
         <form className={classes.form} noValidate>
-         {showLogin ? <Login signup={setShowLogin} showLogin={showLogin} dashboard={props.setDashboard} /> : <Signup signup={setShowLogin} showLogin={showLogin} dashboard={props.setDashboard}/> }
+         {showLogin ? <Login signup={setShowLogin} setRelList={props.setRelList} showLogin={showLogin} dashboard={props.setDashboard} setUser={props.setUser} /> : <Signup signup={setShowLogin} setUser={props.setUser} showLogin={showLogin} dashboard={props.setDashboard}/> }
 
         <Box mt={5}>
 

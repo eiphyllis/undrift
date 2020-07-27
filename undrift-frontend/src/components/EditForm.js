@@ -89,6 +89,8 @@ export default function EditForm(props) {
         notes: notes
       })
   };
+
+  // .map(relationship => relationship.id == component.key ? updated_object : relationship/don't do anything)
   fetch(`http://localhost:3000/relationships/${props.id}`, options)
       .then(response => response.json())
       .then(data => {
@@ -133,15 +135,16 @@ export default function EditForm(props) {
       // onKeyDown={toggleDrawer(anchor, false)}
     >
         <>
+
     <form className={classes.root} noValidate autoComplete="off">
       
-      <FormControl fullWidth={true}>
+      <FormControl >
         {/* <InputLabel htmlFor="component-simple">Name</InputLabel> */}
         <Input required={true} id="component-simple" placeholder={props.name} onChange={handleChange} />
       </FormControl >
       <FormControl fullWidth={true}>
         {/* <InputLabel htmlFor="component-simple"> Social Media Link</InputLabel> */}
-        <Input required id="component-simple" placeholder={props.social} onChange={handleSocial} />
+        <Input required id="component-simple"  placeholder={props.social} onChange={handleSocial} />
       </FormControl>
       <FormControl fullWidth={true} disabled>
         {/* <InputLabel htmlFor="component-disabled">Relationship</InputLabel> */}
@@ -167,12 +170,12 @@ export default function EditForm(props) {
       </FormControl>
       <TextField fullWidth={true}
           id="standard-textarea"
-          label={props.notes}
+          placeholder={props.notes}
           multiline
           onChange={handleNotes}
         />
     </form>
-    <ButtonGroup variant="contained" aria-label="contained primary button group">
+    <ButtonGroup variant="contained" fullWidth="true" aria-label="contained primary button group">
         <Button variant="outlined"> Cancel </Button>
         <Button  style={{
         background: 'linear-gradient(to right, #99e6ff 30%, #21CBF3 90%)',
@@ -181,6 +184,8 @@ export default function EditForm(props) {
         borderRadius: 3,
         color: 'white'}} onClick={() => handleSave()}> Save </Button>
       </ButtonGroup>
+      <Button component="span" display="block" variant="outlined" fullWidth="true" style={{backgroundColor: '#992828', opacity: '0.45'}}> Delete</Button>
+
     </>
     </div>
   );

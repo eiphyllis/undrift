@@ -42,7 +42,7 @@ export default function ViewList(props) {
 
       <List component="nav" aria-label="secondary mailbox folders">
         {props.relList.map(person =>
-        <Relationship {...person} relList={props.relList} setRelList={props.setRelList}></Relationship>
+        <Relationship {...person} key={person.id} relList={props.relList} setRelList={props.setRelList}></Relationship>
         )}
       </List>
     </div>
