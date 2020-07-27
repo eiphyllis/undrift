@@ -4,7 +4,7 @@ class AuthController < ApplicationController
     def create
         user = User.find_by(name: params[:user][:name])
         if user && user.authenticate(params[:user][:password])
-            render json: {name: user.name}
+            render json: user, include: :relationships
         else
             render json: {error: "invalid username or password"}
         end

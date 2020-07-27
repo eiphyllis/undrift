@@ -12,6 +12,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Bounce from 'react-reveal/Bounce';
+
 // ------------------------------------------------------------------------------------------------------
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Nav() {
+export default function Nav(props) {
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -63,7 +65,6 @@ export default function Nav() {
         <Typography variant="h6" className={classes.title}>
                         Undrift
           </Typography>
-          <Button color="inherit">Login</Button>
 
           {auth && (
             <div>
@@ -75,6 +76,8 @@ export default function Nav() {
                 color="inherit"
               >
                 <AccountCircle />
+              {props.dashboard ? <Typography color="inherit"> Welcome back, Bob! </Typography> : ''}
+
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -95,6 +98,8 @@ export default function Nav() {
               </Menu>
             </div>
           )}
+          {props.dashboard ? <Button onClick={() => props.setDashboard(false)} color="inherit">Logout</Button> : <Button color="inherit">Login</Button>}
+
         </Toolbar>
       </AppBar>
     </div>

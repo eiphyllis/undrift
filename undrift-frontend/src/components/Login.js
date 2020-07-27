@@ -13,15 +13,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Slide from 'react-reveal/Slide';
-import Login from './Login'
-import Signup from './Signup'
+import ApiCalendar from 'react-google-calendar-api';
 
-
-function Copyright() {
-  return (
-    <p> Welcome to keeping in touch. </p>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,13 +47,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Enter(props) {
+export default function Login(props) {
   const classes = useStyles();
   const [nameLogin, setNameLogin] = React.useState('');
   const [showError, setShowError] = React.useState(false)
   const [password, setPW] = React.useState('')
-const [showLogin, setShowLogin] = React.useState(true)
-
+  const [notFound, setNotFound] = React.useState(false)
   
   const handleChange = (event) => {
     setNameLogin(event.target.value);
@@ -70,8 +62,10 @@ const [showLogin, setShowLogin] = React.useState(true)
   const handlePW = (event) => {
     setPW(event.target.value);
   };
+  
 
   const handleSubmit = (event) => {
+    ApiCalendar.handleAuthClick();
     event.preventDefault();
 
     if (nameLogin == ''){
@@ -89,7 +83,12 @@ const [showLogin, setShowLogin] = React.useState(true)
           .then(response => response.json())
           .then(data => {
               // this.setState({ postId: data.id })
-               console.log('got back', data)
+               console.log('login got back', data)
+               if (data.error){
+                setNotFound(true)
+               }else {
+                 props.dashboard(true)
+               }
                 // props.setRelList(
                 //   [...props.relList, {...data }]
                 // )
@@ -98,21 +97,82 @@ const [showLogin, setShowLogin] = React.useState(true)
             //UI WILL NOT work if you put .catch so don't - even commented out 
 };
   return (
-    <Grid container component="main" className={classes.root}>
-    <CssBaseline />
- <Grid item xs={false} sm={4} md={7} className={classes.image} /> 
-    <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-      <div className={classes.paper}>
-        <form className={classes.form} noValidate>
-         {showLogin ? <Login signup={setShowLogin} showLogin={showLogin} dashboard={props.setDashboard} /> : <Signup signup={setShowLogin} showLogin={showLogin} dashboard={props.setDashboard}/> }
+   <>
+   {notFound? <p style={{color: 'red'}}> Account not found. Check your credentials again or sign up! </p> : ''}
+   {nameLogin == '' ? <TextField
+      variant="outlined"
+      margin="normal"
+      required
+      fullWidth
+      style={{color: '#21CBF3'}}
+      id="name"
+      label="Name"
+      name="name"
+      autoComplete="name"
+      value={nameLogin}
+      autoFocus
+      onChange={handleChange}
+      error={showError}
+    /> :  <> <TextField
+      variant="outlined"
+      margin="normal"
+      required
+      fullWidth
+      style={{color: '#21CBF3'}}
+      id="name"
+      label="Name"
+      name="name"
+      autoComplete="name"
+      value={nameLogin}
+      autoFocus
+      onChange={handleChange}
+      error={showError}
+    /> <Slide right> <TextField
+        variant="outlined"
+        margin="normal"
+        required
+        fullWidth
+        name="password"
+        label="Password"
+        type="password"
+        id="password"
+        autoComplete="current-password"
+        onChange={handlePW}
+      />  </Slide> </>}
+        
+      <FormControlLabel
+              control={<Checkbox value="remember" style={{color: '#21CBF3'}}/>}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              style={{
+                background: 'linear-gradient(45deg, #99e6ff 30%, #21CBF3 90%)',
+                boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
+                border: 0,
+                borderRadius: 3,
+                color: 'white'
+            }} 
+              className={classes.submit}
+              onClick={(event) => {handleSubmit(event)}}
+            >
+              Log In
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Button style={{color: '#99e6ff'}} variant="body2">
+                  Forgot password?
+                </Button>
+              </Grid>
+              <Grid item>
+              <Button style={{color: '#21CBF3'}} variant="body2" onClick={(event) => {props.signup(!props.showLogin)}}>
 
-        <Box mt={5}>
-
-    <Copyright />
-    </Box>
-    </form>
-    </div>
-    </Grid>
-    </Grid>
+                  {"Don't have an account? Sign Up"}
+                </Button>
+              </Grid>
+            </Grid>
+            </>
   );
 }

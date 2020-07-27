@@ -19,7 +19,7 @@ import Menu from '@material-ui/core/Menu';
 import Nav from './components/Nav'
 import Enter from './components/Enter';
 import Signup from './components/Signup'
-
+import ApiCalendar from 'react-google-calendar-api';
 // ------------------------------------------------------------------------------------------------------
 
 const useStyles = makeStyles((theme) => ({
@@ -37,14 +37,14 @@ const useStyles = makeStyles((theme) => ({
 export default function MenuAppBar() {
   const classes = useStyles();
   const [relList, setRelList] = React.useState([])
-  const [showSU, setShowSU] = React.useState(false);
+  const [dashboard, setDashboard] = React.useState(false);
   
   return (<>
-      <Nav> </Nav>
-      {showSU == false ? <Enter passToggle={setShowSU}/> : <Signup passToggle={setShowSU} /> }
-      {/* <AddForm/>
+      <Nav setDashboard={setDashboard} dashboard={dashboard} > </Nav>
+      {dashboard ?   <><AddForm relList={relList} setRelList={setRelList}/>
+      <ViewList relList={relList}/></> : <Enter setDashboard={setDashboard}/> }
+      {/* <AddForm relList={relList} setRelList={setRelList}/>
       <ViewList relList={relList}/> */}
       </>
-     
     );
 }

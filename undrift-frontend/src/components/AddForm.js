@@ -18,6 +18,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
 import { Grid } from '@material-ui/core';
+import Fade from 'react-reveal/Fade';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,15 +89,26 @@ export default function AddForm(props) {
           .then(data => {
               // this.setState({ postId: data.id })
               //  console.log('got back', data)
+              //  console.log(props)
+
+              if (props.relList == []){
+                props.setRelList(
+                  [{...data }]
+                )
+                // console.log('if')
+              } else {
                 props.setRelList(
                   [...props.relList, {...data }]
                 )
+                // console.log('else')
+              }
           })
     }
             //UI WILL NOT work if you put .catch so don't - even commented out 
 };
 
   return (<>
+   <Fade bottom>
     <form className={classes.root} noValidate autoComplete="off">
     {showError == true ? <TextField
       error
@@ -159,6 +171,8 @@ export default function AddForm(props) {
     </FormControl>
        
     </form>
+    </Fade>
     </>
+
   );
 }

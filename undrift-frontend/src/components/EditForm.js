@@ -92,11 +92,23 @@ export default function EditForm(props) {
   fetch(`http://localhost:3000/relationships/${props.id}`, options)
       .then(response => response.json())
       .then(data => {
-          //  console.log('got back',  data)
+           console.log('edit got back',  data)
+           console.log('find', props.relList)
           // find matching id in array
             // props.setRelList(
             //   [...props.relList, {...data }]
             // )
+            // if (props.relList == []){
+            //   props.setRelList(
+            //     [{...data }]
+            //   )
+            //   // console.log('if')
+            // } else {
+            //   props.setRelList(
+            //     [...props.relList, {...data }]
+            //   )
+            //   // console.log('else')
+            // }
             toggleDrawer('right', false)
 
       })

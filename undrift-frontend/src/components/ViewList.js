@@ -9,6 +9,8 @@ import Divider from '@material-ui/core/Divider';
 import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import Relationship from './Relationship'
+import Slide from 'react-reveal/Slide';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -21,9 +23,10 @@ function ListItemLink(props) {
 }
 
 export default function ViewList(props) {
-console.log('viewlist receives', props)
+// console.log('viewlist receives', props)
   const classes = useStyles();
   return (
+    <Slide bottom>
     <div className={classes.root}>
       <p> Keep in touch with </p>
       <Divider />
@@ -43,5 +46,6 @@ console.log('viewlist receives', props)
         )}
       </List>
     </div>
+    </Slide>
   );
 }

@@ -32,13 +32,9 @@ export default function Relationship(props) {
     <ListItemText primary={props.name} />
           <ListItemText secondary={props.freq} />
           <ListItemText secondary={props.notes} />
-    <EditForm {...props}> </EditForm>
+    <EditForm object={props}> </EditForm>
     </ListItem>
 </>
   );
 }
-<<<<<<< HEAD
  // onClick={(event) => {alert('clicked')}} color="primary" aria-label="delete" size="large"
-=======
- // onClick={(event) => {alert('clicked')}} color="primary" aria-label="delete" size="large"
->>>>>>> e0d4a8d7fbe1580e8e94c2032c87dd285a60f61a
