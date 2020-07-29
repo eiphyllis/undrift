@@ -93,9 +93,6 @@ export default function Login(props) {
                  props.dashboard(true)
                  props.setRelList(data.relationships)
                }
-                // props.setRelList(
-                //   [...props.relList, {...data }]
-                // )
           })
     }
             //UI WILL NOT work if you put .catch so don't - even commented out 

@@ -75,19 +75,28 @@ export default function AddForm(props) {
       setShowError(true)
     }else {
 // daily, weekly, monthly, annually
+      let date = new Date()
+      console.log(date)
+      let year = date.getUTCFullYear()
+      let month = `${date.getMonth()+1}`.padStart(2, '0')
+      let day = date.getDate()
+      let rupasVariable = `${year}-${month}-${day}`
       let event = {
-        'summary': 'Trying to test',
-        'description': 'not yet',
+        'summary': `Hit up ${name}!`,
+        // fix the summary 
+        // fix the notes
+        'description': `${notes}`,
         'start': {
-          'dateTime': '2020-07-28T09:00:00-07:00',
-          'timeZone': 'America/Los_Angeles'
+          'date': rupasVariable
+          // custom to start frow now
+          //custom to all day event
         },
         'end': {
-          'dateTime': '2020-07-28T10:00:00-07:00',
-          'timeZone': 'America/Los_Angeles'
+          'date': rupasVariable
         },
         'recurrence': [
-          'RRULE:FREQ=WEEKLY;COUNT=52'
+          `RRULE:FREQ=${freq};COUNT=4000`
+          // 'RRULE:FREQ=WEEKLY;COUNT=52' conditionally render based on weekly, monthly, annually
         ],
         'reminders': {
           'useDefault': false,
@@ -169,9 +178,9 @@ export default function AddForm(props) {
           value={freq}
           onChange={handleFreq}
         >
-          <MenuItem value={'Weekly'}>Weekly</MenuItem>
-          <MenuItem value={'Monthly'}>Monthly</MenuItem>
-          <MenuItem value={'Yearly'}>Yearly</MenuItem>
+          <MenuItem value={'WEEKLY'}>Weekly</MenuItem>
+          <MenuItem value={'MONTHLY'}>Monthly</MenuItem>
+          <MenuItem value={'YEARLY'}>Yearly</MenuItem>
         </Select>
       </FormControl>
     <FormControl>

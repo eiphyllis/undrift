@@ -80,8 +80,9 @@ const useStyles = makeStyles((theme) => ({
   
     const handleSubmit = (event) => {
       event.preventDefault();
-  
-      if (confirmation === password){
+      console.log('password', password)
+      console.log('confurmed', confirmation)
+      if (confirmation !== password){
         setShowError(true)
         console.log('Passwords do not match each other.')
       }else if (nameLogin.size < 3){
@@ -105,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
                  if (data.error){
                     setNotFound(true)
                    }else {
-                    props.setLoginId(data.id)
+                    props.setUser(data)
                      props.dashboard(true)
                    }
                   // props.setRelList(

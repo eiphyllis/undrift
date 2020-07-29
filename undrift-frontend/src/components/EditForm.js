@@ -42,10 +42,10 @@ export default function EditForm(props) {
   // console.log()
   const classes = useStyles();
   const [state, setState] = React.useState({right: false});
-  const [name, setName] = React.useState('Name');
-  const [freq, setFreq] = React.useState('Weekly');
-  const [social, setSocial] = React.useState('https://wwww.linkedin.com/in/profile');
-  const [notes, setNotes] = React.useState('Notes');
+  const [name, setName] = React.useState(props.name);
+  const [freq, setFreq] = React.useState(props.freq);
+  const [social, setSocial] = React.useState(props.social);
+  const [notes, setNotes] = React.useState(props.notes);
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState('Controlled');
 
@@ -81,21 +81,17 @@ export default function EditForm(props) {
       .then(data => {
          console.log('delete got back',  data)
          props.setRelList(data.relationships)
-         setState({ ...state, ['right']: false});
-
        // .map(relationship => relationship.id == component.key ? updated_object : relationship/don't do anything)
        //fetch person and updated relationships to render
       })//UI WILL NOT work if you put .catch so don't - even commented out 
   };
 
   const handleSave = (event) => {
-    // console.log('name', name, 'id', props.id, 'social', social, 'freq', freq, 'notes', notes)
-
     const options = {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
-        user_id: 1,
+        user_id: props.user_id,
         name: name,
         social: social,
         freq: freq,
@@ -138,19 +134,19 @@ export default function EditForm(props) {
       
       <FormControl >
         {/* <InputLabel htmlFor="component-simple">Name</InputLabel> */}
-        <Input required={true} id="component-simple" placeholder={props.name} onChange={handleChange} />
+        <Input required={true} id="component-simple" value={name} onChange={handleChange} />
       </FormControl >
       <FormControl fullWidth={true}>
         {/* <InputLabel htmlFor="component-simple"> Social Media Link</InputLabel> */}
-        <Input required id="component-simple"  placeholder={props.social} onChange={handleSocial} />
+        <Input required id="component-simple" value={social} onChange={handleSocial} />
       </FormControl>
       <FormControl fullWidth={true} disabled>
         {/* <InputLabel htmlFor="component-disabled">Relationship</InputLabel> */}
-        <Input id="component-disabled" placeholder="Relationship" onChange={handleNotes} />
+        <Input id="component-disabled" value="Relationship" onChange={handleNotes} />
         <FormHelperText> Not enabled. </FormHelperText>
       </FormControl>
       <FormControl fullWidth={true} className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label"> {props.freq}</InputLabel>
+        <InputLabel id="demo-controlled-open-select-label"> {freq}</InputLabel>
         <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
@@ -166,7 +162,7 @@ export default function EditForm(props) {
       </FormControl>
       <TextField fullWidth={true}
           id="standard-textarea"
-          placeholder={props.notes}
+          value={notes}
           multiline
           onChange={handleNotes}
         />

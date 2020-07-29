@@ -42,7 +42,7 @@ export default function App() {
 
   return (<>
       <Nav setDashboard={setDashboard} dashboard={dashboard} setRelList={setRelList} user={user} setUser={setUser}> </Nav>
-      {dashboard ?   <><AddForm user={user} relList={relList} setRelList={setRelList}/>
+      {dashboard ?  <><AddForm user={user} relList={relList} setRelList={setRelList}/>
       <ViewList setRelList={setRelList} relList={relList}/></> : <Enter setUser={setUser} setRelList={setRelList} setDashboard={setDashboard}/> }
       {/* <AddForm relList={relList} setRelList={setRelList}/>
       <ViewList relList={relList}/> */}
